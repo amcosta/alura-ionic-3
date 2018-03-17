@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
-import {HttpClient} from "@angular/common/http";
+import {AlertController, LoadingController, NavController} from 'ionic-angular';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Carro} from "../../model/carro";
+import {CarroProvider} from "../../providers/carro/carro";
 
 @Component({
     selector: 'page-home',
@@ -11,12 +12,37 @@ export class HomePage {
 
     public carros: Carro[];
 
-    constructor(public navCtrl: NavController, private _http: HttpClient) {
-        this._http.get<Carro[]>('http://localhost:8080/api/carro/listaTodos')
-            .subscribe(
-                (carros: Carro[]) => this.carros = carros,
-                error => console.error(error)
-            );
+    constructor(public navCtrl: NavController,
+                private _carroProvider: CarroProvider,
+                private _loadingCtrl: LoadingController,
+                private _alertCtrl: AlertController) {
     }
 
+    ionViewDidLoad() {
+        let loader = this._loadingCtrl.create({
+            content: 'Carregando as informações dos carros'
+        });
+
+        loader.present()
+
+        this._carroProvider.lista()
+            .subscribe(
+                (carros: Carro[]) => {
+                    this.carros = carros;
+                    loader.dismiss();
+                },
+                (error: HttpErrorResponse) => {
+                    console.error(error);
+                    loader.dismiss();
+
+                    this._alertCtrl.create({
+                        title: 'Falha na conexão',
+                        subTitle: 'Não foi possível carregar as informações da lista de carro, tente novamente mais tarde!',
+                        buttons: [
+                            {text: 'Ok'}
+                        ]
+                    }).present();
+                }
+            );
+    }
 }
