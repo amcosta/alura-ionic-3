@@ -1,4 +1,5 @@
 export interface Carro {
     nome: string,
-    preco: string
+    preco: string,
+    fotos: string[]
 }

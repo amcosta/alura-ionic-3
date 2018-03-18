@@ -45,4 +45,8 @@ export class HomePage {
                 }
             );
     }
+
+    selecionaCarro(carro) {
+        console.log(carro);
+    }
 }
