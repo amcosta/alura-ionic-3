@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {IonicPageModule} from 'ionic-angular';
+
 import {EscolhaPage} from './escolha';
 
 @NgModule({
@@ -9,6 +10,9 @@ import {EscolhaPage} from './escolha';
     imports: [
         IonicPageModule.forChild(EscolhaPage),
     ],
+    exports: [
+        EscolhaPage
+    ]
 })
 export class EscolhaPageModule {
 }

@@ -1,12 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-
-/**
- * Generated class for the EscolhaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Carro} from "../../model/carro";
 
 @IonicPage()
 @Component({
@@ -15,7 +9,11 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 })
 export class EscolhaPage {
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    public carro: Carro;
+
+    constructor(public navCtrl: NavController,
+                public navParams: NavParams) {
+        this.carro = this.navParams.get('carroSelecionado');
     }
 
     ionViewDidLoad() {

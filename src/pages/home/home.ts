@@ -3,6 +3,7 @@ import {AlertController, LoadingController, NavController} from 'ionic-angular';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Carro} from "../../model/carro";
 import {CarroProvider} from "../../providers/carro/carro";
+import {EscolhaPage} from "../escolha/escolha";
 
 @Component({
     selector: 'page-home',
@@ -47,6 +48,6 @@ export class HomePage {
     }
 
     selecionaCarro(carro) {
-        console.log(carro);
+        this.navCtrl.push(EscolhaPage.name, {carroSelecionado: carro});
     }
 }
