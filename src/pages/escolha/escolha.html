@@ -1,11 +1,11 @@
-<ion-header>
+<ion-header *ngIf="carro">
     <ion-navbar>
         <ion-title>Escolha</ion-title>
     </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding *ngIf="carro">
     <ion-slides pager="true">
         <ion-slide *ngFor="let foto of carro.fotos">
             <img [src]="foto"/>
@@ -28,15 +28,24 @@
             ACESSÓRIOS
         </ion-item-divider>
 
-        <ion-item>acessório 1</ion-item>
-        <ion-item>acessório 2</ion-item>
+        <ion-item *ngFor="let acessorio of acessorios">
+
+            <ion-label>
+                <h2>{{acessorio.nome}}</h2>
+                <h3>R${{acessorio.preco}}</h3>
+            </ion-label>
+
+            <ion-toggle color="secondary" #toggle (ionChange)="atualizaTotal(toggle.checked, acessorio)">
+            </ion-toggle>
+
+        </ion-item>
     </ion-item-group>
 
     <ion-item-group>
         <ion-item-divider color="light">
-            <span right>Total: R$ 1000</span>
+            <span right>Total: R$ {{ total }}</span>
         </ion-item-divider>
     </ion-item-group>
 
-    <button ion-button block>Avançar</button>
+    <button ion-button block (click)="paginaCadastro()">Avançar</button>
 </ion-content>
